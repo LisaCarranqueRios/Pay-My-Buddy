@@ -3,7 +3,6 @@ body {
     font-family:
 }
 
-/* transaction list css */
 .main-title {
     color:white;
     text-align:center;
@@ -54,4 +53,8 @@ body {
     text-align:center;
     color:white;
     font-size:large;
+}
+
+.slogan {
+    color:white;
 }
