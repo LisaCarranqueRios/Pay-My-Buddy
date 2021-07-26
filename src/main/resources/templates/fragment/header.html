@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="header">
+
+    <!-- first navbar -->
+    <section class="section-title">
+        <nav class="navbar navbar-custom main-title">
+            <div class="btn-group mb-3">
+                <!--  sign in button -->
+                <button type="button" class="btn" onclick="location.href='/login'"
+                        data-toggle="tooltip" data-placement="top" title="Login">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(102,102,102)"
+                         class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"></circle>
+                    </svg>
+                </button>
+                <!--  log in button -->
+                <button type="button" class="btn" onclick="location.href='/account/register'"
+                        data-toggle="tooltip" data-placement="top" title="Register">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(102,102,102)"
+                         class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"></circle>
+                    </svg>
+                </button>
+                <button type="button" class="btn" onclick="location.href='/main/welcome'"
+                        data-toggle="tooltip" data-placement="top" title="Welcome">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(102,102,102)"
+                         class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"></circle>
+                    </svg>
+                </button>
+            </div>
+            <div class="title">
+                Pay My Buddy
+            </div>
+        </nav>
+    </section>
+    <!-- end of first navbar -->
+
+</th:block>
+</body>
+</html>
