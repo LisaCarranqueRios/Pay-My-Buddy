@@ -1,5 +1,3 @@
-/* form style */
-/* add queries */
 
 .form {
 border : 1px solid rgb(208,208,208);
@@ -25,9 +23,6 @@ margin-bottom:30px;
 margin:10px;
 }
 
-.form-login {
-}
-
 .remember {
     margin-left:8px;
  }
@@ -51,4 +46,17 @@ margin:10px;
 
 .send-connect {
     margin:20px;
+}
+
+.img-white {
+    background-color: white !important;
+}
+
+.w-80 {
+    width: 80% !important;
+    margin:auto;
+    }
+
+.margin {
+    margin-top:20px !important;
 }
