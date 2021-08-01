@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <link rel="stylesheet" href="/static/css/menu.css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+
+</head>
+<body>
+<th:block th:fragment="menu">
+
+    <!-- second navbar -->
+  <section class="section-menu">
+            <div class="container-fluid">
+                <div class="row justify-content-between custom-row">
+                <div class="col-3">
+                    <button  class="green-gradient text-white btn pay-btn">Pay My Buddy</button>
+                </div>
+                <div class="col-5">
+                    <nav class="navbar navbar-expand-lg"  style="--bs-breadcrumb-divider: '';"   aria-label="breadcrumb">
+                        <ol class="breadcrumb" id="menu">
+                            <li class="breadcrumb-item active" id="a1"><a   href="/index" onclick="active('a1')"> Home </a></li>
+                            <li class="breadcrumb-item" id="a2"> <a  href="/transaction/transfer" onclick="active('a2')">Transfer</a>  </li>
+                            <li class="breadcrumb-item"  id="a3"><a  href="/account/profile" onclick="active('a3')"> Profile </a></li>
+                            <li class="breadcrumb-item" id ="a4"> <a  href="/account/contact" onclick="active('a4')"> Contact </a></li>
+                            <li class="breadcrumb-item">  <a   href="logoff" value="Log off"  data-bs-toggle="modal"
+                                                             data-bs-target="#logoutModal" onclick="active('a5')">Log off</a></li>
+                        </ol>
+                    </nav>
+                    <form name="logoutForm" th:action="@{/logout}" method="post"
+                          class="form-horizontal">
+                        <div class="modal fade" id="logoutModal" tabindex="-1"
+                             aria-labelledby="logoutModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="green btn">Logout</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+
+    </section>
+    <!-- end of second navbar -->
+
+</th:block>
+
+
+</body>
+</html>

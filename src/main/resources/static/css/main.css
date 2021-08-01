@@ -1,0 +1,73 @@
+
+body {
+    font-family:
+}
+
+.main-title {
+    color:white;
+    text-align:center;
+    font-size:24px;
+}
+
+.navbar-custom {
+    background-color: rgb(66, 66, 66);
+}
+
+.gray {
+    color:rgb(102,102,102)!;
+}
+
+.green-gradient {
+    background:linear-gradient(to right, rgb(98,185,90),rgb(138,195,74));
+}
+
+.green{
+    background:linear-gradient(to right, rgb(92, 184, 92),rgb(92, 184, 92));
+}
+
+.blue {
+    background:linear-gradient(to right, rgb(2, 117, 216),rgb(2, 117, 216));
+    color:white;
+}
+
+.title {
+    text-align:center;
+    flex:1;
+    padding-right:175px;
+}
+
+.welcome {
+    margin:auto;
+    margin-top:20px;
+    padding-top:100px;
+    height:400px;
+    text-align:center;
+    color:white;
+    font-size:large;
+}
+
+.slogan {
+    color:white;
+}
+
+a {
+    text-decoration:none !important;
+}
+
+.custom-container {
+    padding-left:0px !important;
+}
+
+.thead {
+    background-color:rgb(92, 184, 92);
+    color:white;
+    font-weight:lighter;
+    text-align:center;
+}
+.thbody {
+    text-align:center;
+}
+
+
+.breadcrumb>.active>a {
+color:gray;}
