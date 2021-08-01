@@ -74,18 +74,6 @@ public class AccountController {
         return "account/register";
     }
 
-/*    @GetMapping("/account/delete/{id}")
-    public String deleteAccount(@PathVariable("id") Integer id, Model model) {
-        try {
-            Account account = accountService.displayAccount(id);
-            accountService.delete(account);
-            model.addAttribute("accounts", accountService.findAll());
-        } catch (IllegalArgumentException e) {
-            log.debug("Invalid account Id:" + id);
-        }
-        return "redirect:/account/list";
-    }*/
-
     /**
      * This method is responsible for getting user profile information for a logged user
      * @param model

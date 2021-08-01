@@ -1,0 +1,122 @@
+/*sizes*/
+.transaction-page {
+height:1349px;
+width:100%;
+}
+
+
+.transaction-row {
+width:100%;
+height:227px;
+background-color:rgb(245,245,245);
+margin:0 !important;
+}
+
+
+.send-text {
+position:relative;
+bottom:35px;
+font-size:23px;
+}
+
+/*
+.form-horizontal {
+align-content:center;
+margin:auto;
+}
+*/
+
+/*button*/
+/*.btn-transfer {
+    margin:20px;
+    position:relative;
+    top:20px;
+    text-align:right;
+}*/
+.btn-connect {
+        height:62px;
+            font-weight:bold !important;
+/*    position: relative;
+    bottom: 78px;
+
+
+    margin-left:50px;*/
+}
+/*
+.send-connect {
+    margin:20px;
+}
+*/
+
+.btn-pay {
+font-weight:bold !important;
+height:71px;
+width:100%;
+/*position:relative;
+bottom:-20px;*/
+}
+
+/*table*/
+.thead {
+    background-color:rgb(92, 184, 92);
+    color:white;
+    font-weight:lighter;
+    text-align:center;
+}
+.thbody {
+    text-align:center;
+}
+
+.text-right {
+text-align:right;
+}
+
+/*input*/
+.connection-input {
+text-align:center;
+height:65px;
+background-color:white;
+border:1px solid black;
+width:100%;
+}
+
+.amount-input {
+text-align:right;
+height:65px;
+border:1px solid black;
+width:100%;
+}
+
+/* pagination */
+#sort_paginate  {
+  text-align: center;
+  float:none;
+}
+
+.table {
+border: 1px solid black !important;
+}
+
+tr, th, td {
+border:none !important;
+}
+
+.custom-th {
+font-weight:normal !important;
+}
+
+#sort_wrapper {
+padding:0px;
+}
+
+@media screen and (min-width: 1700px) {
+tr, th, td {
+height:141px;
+}
+}
+
+@media screen and (max-width: 1700px) {
+tr, th, td {
+height:30px;
+}
+}

@@ -6,6 +6,7 @@ body {
 .main-title {
     color:white;
     text-align:center;
+    font-size:24px;
 }
 
 .navbar-custom {
@@ -29,19 +30,10 @@ body {
     color:white;
 }
 
-.green-thead {
-    background-color:rgb(92, 184, 92);
-    color:white;
-    font-weight:lighter;
-    text-align:center;
-}
-
-.thbody {
-    text-align:center;
-}
-
 .title {
-    margin-right:48%;
+    text-align:center;
+    flex:1;
+    padding-right:175px;
 }
 
 .welcome {
@@ -49,7 +41,6 @@ body {
     margin-top:20px;
     padding-top:100px;
     height:400px;
-    width:1000px;
     text-align:center;
     color:white;
     font-size:large;
@@ -58,3 +49,25 @@ body {
 .slogan {
     color:white;
 }
+
+a {
+    text-decoration:none !important;
+}
+
+.custom-container {
+    padding-left:0px !important;
+}
+
+.thead {
+    background-color:rgb(92, 184, 92);
+    color:white;
+    font-weight:lighter;
+    text-align:center;
+}
+.thbody {
+    text-align:center;
+}
+
+
+.breadcrumb>.active>a {
+color:gray;}

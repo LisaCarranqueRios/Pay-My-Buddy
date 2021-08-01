@@ -1,0 +1,17 @@
+.table {
+border: 1px solid black !important;
+vertical-align:middle;
+}
+
+.profile-row {
+width:100%;
+height:227px;
+background-color:rgb(245,245,245);
+margin:0 !important;
+}
+
+.btn-credit {
+width:100%;
+height:62px;
+}
+

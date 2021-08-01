@@ -51,25 +51,4 @@ public class TransactionControllerIT {
     }
 
 
-    @WithMockUser("jeanne@mail.com")
-    @Test
-    public void givenAuthRequestTransactionValidationOnPrivateService_shouldSucceedWith200() throws Exception {
-
-        this.mvc.perform(post("/transaction/validate")
-                .with(csrf()))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
-
-    @WithMockUser("jeanne@mail.com")
-    @Test
-    public void givenAuthRequestTransactionWithWrongURL_shouldFail() throws Exception {
-
-        this.mvc.perform(post("/transaction/validat")
-                .with(csrf()))
-                .andExpect(status().is(404))
-                .andReturn();
-    }
-
-
 }

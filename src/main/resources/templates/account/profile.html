@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" href="/static/css/main.css"/>
-    <link rel="stylesheet" href="/static/css/form.css"/>
+    <link rel="stylesheet" href="/static/css/account-profile.css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/static/js/profile.js"></script>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -23,7 +25,7 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="/index">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Profile</li>
             </ol>
         </nav>
@@ -31,44 +33,25 @@
 </section>
 
 
-<div class="container">
-    <div class="row"><p>Check your profile information</p></div>
-    <div class="row">
-        <table class="table table-bordered">
-            <thead class="green-thead">
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Account</th>
-            </tr>
-            </thead>
-            <tbody class="thbody">
-            <tr>
-                <td th:text="${debtorAccount.firstName}"></td>
-                <td th:text="${debtorAccount.lastName}"></td>
-                <td th:text="${debtorAccount.count}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<section>
 
-<section class="section-credit">
     <div class="container">
-        <div class="">Credit your account</div>
-        <div class="transfer">
+        <div class="mt-5 mb-2">Credit your account</div>
+<!--        <div class="transfer">-->
+
             <form action="#" th:action="@{/account/credit}" th:object="${account}" method="post"
                   class="form-horizontal">
-                <span class="btn-transfer">
-                    <label for="count">Amount</label>
-                        <input type="number" th:field="*{count}" id="count" placeholder="0€" class="col-1" required
-                               min=1>
-                 </span>
-                <span class="btn-transfer">
-                        <input class="green btn col-sm-2" type="button" value="Credit" data-bs-toggle="modal"
-                               data-bs-target="#connectModal">
-                </span>
+                <div class="row  profile-row justify-content-center align-items-center">
 
+                <div class="col-4">
+                    <label for="count"></label>
+                        <input class="btn-credit" type="number" th:field="*{count}" id="count" placeholder="0€" required min=1>
+                 </div>
+                <div class="col-4 ">
+                        <input class="green btn btn-credit mt-4" type="button" value="Credit" data-bs-toggle="modal"
+                               data-bs-target="#connectModal">
+                </div>
+                </div>
                 <!-- Modal -->
                 <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel"
                      aria-hidden="true">
@@ -88,8 +71,30 @@
                 </div>
                 <div class="error text-info" th:text="${errorMessage!=null?errorMessage:null}"></div>
             </form>
-        </div>
+<!--        </div>-->
     </div>
+</section>
+
+<section>
+<div class="container">
+    <div class="row mt-5 mb-0"><p>Check your profile information</p></div>
+        <table class="table table-striped">
+            <thead class="thead">
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Account</th>
+            </tr>
+            </thead>
+            <tbody class="thbody">
+            <tr>
+                <td th:text="${debtorAccount.firstName}"></td>
+                <td th:text="${debtorAccount.lastName}"></td>
+                <td th:text="${debtorAccount.count}"></td>
+            </tr>
+            </tbody>
+        </table>
+</div>
 </section>
 
 </body>

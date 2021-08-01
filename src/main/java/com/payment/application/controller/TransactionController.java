@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -35,7 +34,7 @@ public class TransactionController {
      * @return the refreshed page with the list of all transactions
      */
     @PostMapping("/transaction/validate")
-    public String validate(@Valid Transaction transaction, BindingResult result, Model model) {
+    public String validate(Transaction transaction, BindingResult result, Model model) {
         String email = accountService.getUser();
         Account debtorAccount = accountService.getByEmail(email);
         Transaction transactionSaved = null;
