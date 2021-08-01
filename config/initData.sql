@@ -1,5 +1,36 @@
-/*create database projet06;*/
-use projet06;
+
+
+create database prod;
+use prod;
+
+create table account(
+id int PRIMARY KEY AUTO_INCREMENT,
+email varchar(80) NOT NULL,
+password varchar(200) NOT NULL,
+first_name varchar(80) NOT NULL,
+last_name varchar(80) NOT NULL,
+count double);
+
+create table transaction(
+id int PRIMARY KEY AUTO_INCREMENT,
+date varchar(20) NOT NULL,
+amount double NOT NULL,
+amount_ttc double,
+rate double,
+description varchar(20),
+debtor_account_id int NOT NULL,
+FOREIGN KEY (debtor_account_id) REFERENCES account(ID),
+creditor_account_id int NOT NULL,
+FOREIGN KEY (creditor_account_id) REFERENCES account(ID));
+
+create table account_contact (
+account_id int NOT NULL,
+FOREIGN KEY (account_id) REFERENCES account(ID),
+contact_id int NOT NULL,
+FOREIGN KEY (contact_id) REFERENCES account(ID));
+
+
+use prod;
 insert ignore  into account(id, email,password,first_name, last_name,count) values ('200', 'jeannedupont@mail.com', '$2a$10$MiAcjZQu0fAjWtoCc6NpSO.4.1yteMsb6mhmJloqoAcM0d7Z5tAB2', 'Jeanne', 'Dupont', '100');
 insert ignore  into account(id, email,password,first_name, last_name,count) values ('201', 'mireilledupont@mail.com', '$2a$10$MiAcjZQu0fAjWtoCc6NpSO.4.1yteMsb6mhmJloqoAcM0d7Z5tAB2','Mireille', 'Dupont', '100');
 insert ignore  into account_contact(account_id, contact_id) values ('200', '201');
@@ -22,4 +53,3 @@ update IGNORE account set count='100' where id='202';
 insert ignore  into account(id, email ,password, first_name, last_name, count) values ('204', 'lou@mail.com', '$2a$10$MiAcjZQu0fAjWtoCc6NpSO.4.1yteMsb6mhmJloqoAcM0d7Z5tAB2', 'Lou', 'Boyd','100');
 
 commit;
-
