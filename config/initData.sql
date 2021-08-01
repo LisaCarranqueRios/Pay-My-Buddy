@@ -1,4 +1,4 @@
-
+/* Setting up PROD DB */
 
 create database prod;
 use prod;
@@ -53,3 +53,4 @@ update IGNORE account set count='100' where id='202';
 insert ignore  into account(id, email ,password, first_name, last_name, count) values ('204', 'lou@mail.com', '$2a$10$MiAcjZQu0fAjWtoCc6NpSO.4.1yteMsb6mhmJloqoAcM0d7Z5tAB2', 'Lou', 'Boyd','100');
 
 commit;
+
