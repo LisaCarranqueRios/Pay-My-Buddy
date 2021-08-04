@@ -24,14 +24,18 @@
         <div class="form">
             <button class="green-gradient text-white btn mt-5">Pay My Buddy</button>
             <div class="row">
+                <div>
+                    <div class="alert alert-danger mt-2" th:if="${errorMessage!=null}"
+                         th:text="${errorMessage!=null?errorMessage:null}"></div>
+                </div>
                 <form action="#" th:action="@{/account/validate}" th:object="${account}" method="post">
                     <div class="col-sm-10 mx-auto mb-3">
                         <label for="firstName"></label>
-                            <input class="form-control" type="text" th:field="*{firstName}" id="firstName"
-                                   placeholder="Firstname">
-                        </div>
+                        <input class="form-control" type="text" th:field="*{firstName}" id="firstName"
+                               placeholder="Firstname">
+                    </div>
                     <div class="alert alert-danger col-sm-10 mx-auto" th:if="${#fields.hasErrors('firstName')}">
-                    Minimum number of characters is 2.
+                        Minimum number of characters is 2.
                     </div>
 
                     <div class="col-sm-10 mx-auto mb-3">
