@@ -117,11 +117,16 @@ public class TransactionController {
                 creditErrorMessage = "Not enough credit for this transaction. Please credit your bank account for more transaction.";
             }
         }
+
+        if (transaction != null) {
+            model.addAttribute("debtorAccount", transaction.getDebtorAccount());
+        } else {
+            model.addAttribute("debtorAccount", debtorAccount);
+        }
         List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
         model.addAttribute("accounts", accountService.findAll());
         model.addAttribute("bankAccounts", bankAccountService.findByUser(debtorAccount));
         model.addAttribute("email", email);
-        model.addAttribute("debtorAccount", accountService.getByEmail(email));
         model.addAttribute("transactions", accountTransactions);
         model.addAttribute("contacts", debtorAccount.getContacts());
         model.addAttribute("transaction", new Transaction());
@@ -162,11 +167,15 @@ public class TransactionController {
                 transferErrorMessage = "Not enough credit for this transaction. Please credit your Pay My Buddy Account for more transaction.";
             }
         }
+        if (transaction != null) {
+            model.addAttribute("debtorAccount", transaction.getDebtorAccount());
+        } else {
+            model.addAttribute("debtorAccount", payMyBuddyAccount);
+        }
         List<Transaction> accountTransactions = transactionService.findByAccount(payMyBuddyAccount);
         model.addAttribute("accounts", accountService.findAll());
         model.addAttribute("bankAccounts", bankAccountService.findByUser(payMyBuddyAccount));
         model.addAttribute("email", email);
-        model.addAttribute("debtorAccount", payMyBuddyAccount);
         model.addAttribute("transactions", accountTransactions);
         model.addAttribute("contacts", payMyBuddyAccount.getContacts());
         model.addAttribute("transaction", new Transaction());
