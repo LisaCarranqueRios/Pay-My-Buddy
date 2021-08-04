@@ -34,6 +34,4 @@ public class Transaction {
     private Account debtorAccount;
     @ManyToOne(fetch = FetchType.EAGER)
     private Account creditorAccount;
-
-
 }

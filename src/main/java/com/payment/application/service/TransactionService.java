@@ -2,6 +2,7 @@ package com.payment.application.service;
 
 import com.payment.application.dao.TransactionDao;
 import com.payment.application.model.Account;
+import com.payment.application.model.BankAccount;
 import com.payment.application.model.Transaction;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,39 +22,74 @@ public class TransactionService implements ITransactionService {
     AccountService accountService;
 
     @Autowired
+    BankAccountService bankAccountService;
+
+    @Autowired
     TransactionDao transactionDao;
 
     @Autowired
     Environment environment;
 
-    /**
-     * This method is responsible for saving a new transaction
-     * @param debtorId the id of the debtor to debit
-     * @param creditorEmail the email of the creditor to credit
-     * @param amount the amount to be transfered
-     * @param description the reason for this transaction
-     * @return the saved transaction or null if there is an error
-     */
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public Transaction save(int debtorId, String creditorEmail, double amount, String description) {
+    public Transaction save(int debtorId, String creditorEmail, double amount, String description,
+                             BankAccount bankAccount) {
         Account debtorAccount = accountService.findById(debtorId);
         Account creditorAccount = accountService.getByEmail(creditorEmail);
         if (debtorAccount.getContacts() != null && debtorAccount.getContacts().contains(creditorAccount)
                 && (debtorAccount.getCount() >= calculateTransactionAmountWithRate(amount))) {
-
             Transaction transaction = Transaction.builder().debtorAccount(debtorAccount)
                     .creditorAccount(creditorAccount).amount(amount).date(LocalDate.now().toString())
                     .description(description).rate(Double.valueOf(environment.getProperty("rate")))
                     .amountTTC(calculateTransactionAmountWithRate(amount)).build();
             accountService.decreaseCount(debtorAccount, transaction.getAmountTTC());
-            accountService.increaseCount(creditorAccount, transaction.getAmountTTC());
+            accountService.increaseCount(creditorAccount, transaction.getAmount());
             return transactionDao.save(transaction);
-
+        }
+            else if (debtorAccount.equals(creditorAccount) &&
+                bankAccount.getBankAccountBalance() >= calculateTransactionAmountWithRate(amount)) {
+            Transaction transaction = Transaction.builder().debtorAccount(debtorAccount)
+                    .creditorAccount(creditorAccount).amount(amount).date(LocalDate.now().toString())
+                    .description(description).rate(Double.valueOf(environment.getProperty("rate")))
+                    .amountTTC(calculateTransactionAmountWithRate(amount)).build();
+            accountService.increaseCount(debtorAccount, transaction.getAmount());
+            bankAccountService.decreaseCount(bankAccount, transaction.getAmountTTC());
+            return transactionDao.save(transaction);
         } else if (debtorAccount.getCount() <= calculateTransactionAmountWithRate(amount)) {
             log.error("Not enough credit for this transaction. Please credit your count for more transaction.");
         } else if (debtorAccount.getContacts() == null) {
             log.error("Please add contact first.");
+        } else {
+            log.error("Error during transaction");
+        }
+        return null;
+    }
+
+
+    /**
+     * This method is responsible to transfer money from user Pay My Buddy account to one of the linked bank accounts
+     * @param userId
+     * @param amount
+     * @param description
+     * @param bankAccount
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public Transaction transfer(int userId,double amount, String description,
+                            BankAccount bankAccount) {
+        Account payMyBuddyAccount = accountService.findById(userId);
+        if (payMyBuddyAccount.getCount() >= calculateTransactionAmountWithRate(amount)) {
+            Transaction transaction = Transaction.builder().debtorAccount(payMyBuddyAccount)
+                    .creditorAccount(payMyBuddyAccount).amount(amount).date(LocalDate.now().toString())
+                    .description(description).rate(Double.valueOf(environment.getProperty("rate")))
+                    .amountTTC(calculateTransactionAmountWithRate(amount)).build();
+            accountService.decreaseCount(payMyBuddyAccount, transaction.getAmountTTC());
+            bankAccountService.increaseCount(bankAccount, transaction.getAmount());
+            return transactionDao.save(transaction);
+        } else if (payMyBuddyAccount.getCount() <= calculateTransactionAmountWithRate(amount)) {
+            log.error("Not enough credit for this transaction. Please credit your Pay My Buddy Account for more transaction.");
         } else {
             log.error("Error during transaction");
         }
