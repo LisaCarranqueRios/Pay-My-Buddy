@@ -89,11 +89,12 @@ public class TransactionController {
     }
 
     /**
-     * This method is responsible for credit procedure on user's account
+     * This method is responsible for transferring money from the user bank account to the user
+     * Pay My Buddy account
      * @param transactionDTO
      * @param result
      * @param model
-     * @return the page with the list of all transaction
+     * @return The page with the Pay My Buddy user account and bank accounts
      */
     @PostMapping("/transaction/creditAccount")
     public String credit(TransactionDTO transactionDTO, BindingResult result, Model model) {
@@ -122,6 +123,14 @@ public class TransactionController {
     }
 
 
+    /**
+     * This method is responsible for transferring money from the Pay My Buddy user account to the
+     * selected user bank account
+     * @param transactionDTO
+     * @param result
+     * @param model
+     * @return The page with the Pay My Buddy user account and bank accounts
+     */
     @PostMapping("/transaction/accountToBankAccount")
     public String transfer(TransactionDTO transactionDTO, BindingResult result, Model model) {
         String email = accountService.getUser();
