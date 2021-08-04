@@ -34,6 +34,7 @@ public class TransactionController {
 
     /**
      * This method is responsible for saving a new transaction
+     *
      * @param transaction the new transaction to be saved
      * @param result
      * @param model
@@ -67,6 +68,7 @@ public class TransactionController {
 
     /**
      * This method is responsible for displaying the page of all existing transaction
+     *
      * @param transaction
      * @param result
      * @param model
@@ -91,6 +93,7 @@ public class TransactionController {
     /**
      * This method is responsible for transferring money from the user bank account to the user
      * Pay My Buddy account
+     *
      * @param transactionDTO
      * @param result
      * @param model
@@ -107,7 +110,7 @@ public class TransactionController {
         if (!result.hasErrors()) {
             transaction = transactionService.save(debtorAccount.getId(), debtorAccount.getEmail(),
                     Double.valueOf(transactionDTO.getCount()), "Credit from IBAN : " + transactionDTO.getIban()
-            , bankAccount);
+                    , bankAccount);
             if (transaction != null) {
                 creditSuccessMessage = "Money transferred from your bank account to your Pay My Buddy account.";
             } else {
@@ -135,6 +138,7 @@ public class TransactionController {
     /**
      * This method is responsible for transferring money from the Pay My Buddy user account to the
      * selected user bank account
+     *
      * @param transactionDTO
      * @param result
      * @param model
@@ -150,8 +154,8 @@ public class TransactionController {
         String transferErrorMessage = null;
         if (!result.hasErrors()) {
             transaction = transactionService.transfer(payMyBuddyAccount.getId(),
-                    Double.valueOf(transactionDTO.getCount()), "Transfer from Pay My Buddy account to : " +transactionDTO.getIban()
-            , bankAccount);
+                    Double.valueOf(transactionDTO.getCount()), "Transfer from Pay My Buddy account to : " + transactionDTO.getIban()
+                    , bankAccount);
             if (transaction != null) {
                 transferSuccessMessage = "Money transferred from your Pay My Buddy account to your bank account.";
             } else {
@@ -173,7 +177,6 @@ public class TransactionController {
         model.addAttribute("transferErrorMessage", transferErrorMessage);
         return "account/profile";
     }
-
 
 
 }

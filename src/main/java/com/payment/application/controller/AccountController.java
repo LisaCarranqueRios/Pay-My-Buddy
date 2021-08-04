@@ -38,6 +38,7 @@ public class AccountController {
 
     /**
      * This method is responsible for getting a list of all accounts existing in database
+     *
      * @param model
      * @return the list of all accounts in database
      */
@@ -49,6 +50,7 @@ public class AccountController {
 
     /**
      * This method is responsible for getting a logging page for an existing user
+     *
      * @param request
      * @param model
      * @return a page with a sign in form in order to logging
@@ -62,13 +64,14 @@ public class AccountController {
 
     /**
      * This method is responsible for validating and saving a new user
+     *
      * @param account the user account information which has to follow Account model rules
      * @param result
      * @param model
      * @return a page with a sign in form in order to logging
      */
     @PostMapping("/account/validate")
-        public String validate(@ModelAttribute("account") @Valid Account account, BindingResult result, Model model) {
+    public String validate(@ModelAttribute("account") @Valid Account account, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             account.setPassword(encoder.encode(account.getPassword()));
@@ -82,6 +85,7 @@ public class AccountController {
 
     /**
      * This method is responsible for getting user profile information for a logged user
+     *
      * @param model
      * @return a page with user profile information :
      * - firstname
@@ -108,6 +112,7 @@ public class AccountController {
 
     /**
      * This method is responsible for getting the list of contacts for a logged user
+     *
      * @param model
      * @return the list of contacts with their firstname and lastname
      */
@@ -127,6 +132,7 @@ public class AccountController {
 
     /**
      * This method is responsible for adding a contact to the list of contacts for a logged user
+     *
      * @param accountDTO
      * @param result
      * @param model

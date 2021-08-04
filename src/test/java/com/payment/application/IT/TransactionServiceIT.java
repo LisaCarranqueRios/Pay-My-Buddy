@@ -18,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.List;
-import java.util.Set;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.jupiter.api.Assertions.*;

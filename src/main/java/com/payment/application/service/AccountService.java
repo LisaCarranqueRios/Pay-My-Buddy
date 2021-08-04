@@ -23,6 +23,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for getting an account by id
+     *
      * @param id the id of the selected account
      * @return the account associated to this id
      */
@@ -34,6 +35,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for getting an account by email
+     *
      * @param email the email of the selected account
      * @return the account associated to this email
      */
@@ -45,6 +47,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for saving a new account if it does not already exist in database
+     *
      * @param account the new account to save in database
      * @return the saved account in database
      */
@@ -62,6 +65,7 @@ public class AccountService implements IAccountService {
     /**
      * This method is responsible for updating account information for an existing account
      * if it is found in database
+     *
      * @param account the account to update
      * @return the updated account or null if it is not found in database
      */
@@ -78,6 +82,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for getting an account by id
+     *
      * @param id the id of the selected account
      * @return the account associated with this id
      */
@@ -89,6 +94,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for deleting an account in database
+     *
      * @param account the account to delete
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -99,6 +105,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for listing all accounts existing in database
+     *
      * @return the list of the accounts existing in database
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -109,6 +116,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for adding as contact two accounts
+     *
      * @param account1 the first account in contact
      * @param account2 the second account in contact
      */
@@ -129,8 +137,9 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for adding credit to a user account
+     *
      * @param account the account on which to add credit
-     * @param credit the amount of credit to add to this account
+     * @param credit  the amount of credit to add to this account
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
@@ -141,8 +150,9 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for increasing a creditor account
+     *
      * @param account the creditor account to credit
-     * @param amount the amount to be added
+     * @param amount  the amount to be added
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
@@ -153,8 +163,9 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for decreasing a debtor account
+     *
      * @param account the debtor account to debit
-     * @param amount the amount to be removed
+     * @param amount  the amount to be removed
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
@@ -165,6 +176,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for getting an account contacts
+     *
      * @param debtorAccount the selected account
      * @return the list of contacts of the selected account
      */
@@ -188,6 +200,7 @@ public class AccountService implements IAccountService {
 
     /**
      * This method is responsible for getting the user email from Spring Security Context
+     *
      * @return the email of the logged user
      */
     public String getUser() {
