@@ -102,10 +102,17 @@ public class TransactionController {
         Account debtorAccount = accountService.getByEmail(email);
         BankAccount bankAccount = bankAccountService.getByIban(transactionDTO.getIban());
         Transaction transaction = null;
+        String creditSuccessMessage = null;
+        String creditErrorMessage = null;
         if (!result.hasErrors()) {
             transaction = transactionService.save(debtorAccount.getId(), debtorAccount.getEmail(),
                     Double.valueOf(transactionDTO.getCount()), "Credit from IBAN : " + transactionDTO.getIban()
             , bankAccount);
+            if (transaction != null) {
+                creditSuccessMessage = "Money transferred from your bank account to your Pay My Buddy account.";
+            } else {
+                creditErrorMessage = "Not enough credit for this transaction. Please credit your bank account for more transaction.";
+            }
         }
         List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
         model.addAttribute("accounts", accountService.findAll());
@@ -118,7 +125,9 @@ public class TransactionController {
         model.addAttribute("account", new Account());
         model.addAttribute("bankAccount", new BankAccount());
         model.addAttribute("transactionDTO", new TransactionDTO());
-        //model.addAttribute("successMessage", transaction.getDescription());
+
+        model.addAttribute("creditSuccessMessage", creditSuccessMessage);
+        model.addAttribute("creditErrorMessage", creditErrorMessage);
         return "account/profile";
     }
 
@@ -137,10 +146,17 @@ public class TransactionController {
         Account payMyBuddyAccount = accountService.getByEmail(email);
         BankAccount bankAccount = bankAccountService.getByIban(transactionDTO.getIban());
         Transaction transaction = null;
+        String transferSuccessMessage = null;
+        String transferErrorMessage = null;
         if (!result.hasErrors()) {
             transaction = transactionService.transfer(payMyBuddyAccount.getId(),
                     Double.valueOf(transactionDTO.getCount()), "Transfer from Pay My Buddy account to : " +transactionDTO.getIban()
             , bankAccount);
+            if (transaction != null) {
+                transferSuccessMessage = "Money transferred from your Pay My Buddy account to your bank account.";
+            } else {
+                transferErrorMessage = "Not enough credit for this transaction. Please credit your Pay My Buddy Account for more transaction.";
+            }
         }
         List<Transaction> accountTransactions = transactionService.findByAccount(payMyBuddyAccount);
         model.addAttribute("accounts", accountService.findAll());
@@ -153,7 +169,8 @@ public class TransactionController {
         model.addAttribute("account", new Account());
         model.addAttribute("bankAccount", new BankAccount());
         model.addAttribute("transactionDTO", new TransactionDTO());
-        //model.addAttribute("successMessage", transaction.getDescription());
+        model.addAttribute("transferSuccessMessage", transferSuccessMessage);
+        model.addAttribute("transferErrorMessage", transferErrorMessage);
         return "account/profile";
     }
 
