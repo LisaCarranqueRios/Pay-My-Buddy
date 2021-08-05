@@ -42,17 +42,17 @@ public class BankAccountController {
         String email = accountService.getUser();
         Account debtorAccount = accountService.getByEmail(email);
         bankAccount.setUserAccount(debtorAccount);
-        String successMessage = null;
-        String errorMessage = null;
+        String addBankSuccessMessage = null;
+        String addBankErrorMessage = null;
         if (!result.hasErrors()) {
             BankAccount bankAccountSaved = bankAccountService.save(bankAccount);
             if (bankAccountSaved != null) {
-                successMessage = "Bank Account added successfully";
+                addBankSuccessMessage = "Bank Account added successfully";
             } else {
-                errorMessage = "Bank Account already saved into database. Please check iban settings.";
+                addBankErrorMessage = "Bank Account already saved into database. Please check iban settings.";
             }
         } else {
-            errorMessage = "Please check account information";
+            addBankErrorMessage = "Please check account information";
         }
         List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
         model.addAttribute("accounts", accountService.findAll());
@@ -64,8 +64,8 @@ public class BankAccountController {
         model.addAttribute("transaction", new Transaction());
         model.addAttribute("account", new Account());
         model.addAttribute("transactionDTO", new TransactionDTO());
-        model.addAttribute("successMessage", successMessage);
-        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("addBankSuccessMessage", addBankSuccessMessage);
+        model.addAttribute("addBankErrorMessage", addBankErrorMessage);
         return "account/profile";
     }
 }

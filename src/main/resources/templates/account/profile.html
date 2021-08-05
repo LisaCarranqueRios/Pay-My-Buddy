@@ -57,6 +57,12 @@
 <section>
     <div class="container">
         <div class="mt-5 mb-2">Credit your Pay My Buddy account</div>
+        <div>
+            <div class="alert alert-success" th:if="${creditSuccessMessage!=null}"
+                 th:text="${creditSuccessMessage!=null?creditSuccessMessage:null}"></div>
+            <div class="alert alert-danger" th:if="${creditErrorMessage!=null}"
+                 th:text="${creditErrorMessage!=null?creditErrorMessage:null}"></div>
+        </div>
         <form action="#" th:action="@{/transaction/creditAccount}" th:object="${transactionDTO}" method="post"
               class="form-horizontal">
             <div class="row profile-row justify-content-center align-items-center">
@@ -129,6 +135,7 @@
 <section>
     <!-- Add bank account -->
 <div class="container">
+
         <div class="row justify-content-between">
             <div class="col-8 mb-1 mt-5">Transfer money from your Pay My Buddy account to your bank account</div>
             <div class="col-2 mb-1 mt-4">
@@ -261,10 +268,16 @@
             <div class="row profile-row justify-content-center align-items-center">
                 <div class="container ">
                     <div>
-                        <div class="alert alert-success" th:if="${successMessage!=null}"
-                             th:text="${successMessage!=null?successMessage:null}"></div>
-                        <div class="alert alert-danger" th:if="${errorMessage!=null}"
-                             th:text="${errorMessage!=null?errorMessage:null}"></div>
+                        <div class="alert alert-success" th:if="${addBankSuccessMessage!=null}"
+                             th:text="${addBankSuccessMessage!=null?addBankSuccessMessage:null}"></div>
+                        <div class="alert alert-danger" th:if="${addBankErrorMessage!=null}"
+                             th:text="${addBankErrorMessage!=null?addBankErrorMessage:null}"></div>
+                    </div>
+                    <div>
+                        <div class="alert alert-success" th:if="${transferSuccessMessage!=null}"
+                             th:text="${transferSuccessMessage!=null?transferSuccessMessage:null}"></div>
+                        <div class="alert alert-danger" th:if="${transferErrorMessage!=null}"
+                             th:text="${transferErrorMessage!=null?transferErrorMessage:null}"></div>
                     </div>
                     <div class="row transaction-row justify-content-center align-items-center">
                     <span class="col-5">
