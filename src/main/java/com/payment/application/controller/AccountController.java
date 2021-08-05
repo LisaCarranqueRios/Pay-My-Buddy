@@ -76,9 +76,16 @@ public class AccountController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             account.setPassword(encoder.encode(account.getPassword()));
             account.setCount(Double.valueOf(0));
-            accountService.save(account);
-            model.addAttribute("accounts", accountService.findAll());
-            return "redirect:/home";
+            Account accountSaved = accountService.save(account);
+            if (accountSaved != null)  {
+                model.addAttribute("accounts", accountService.findAll());
+                return "redirect:/home";
+            } else {
+                model.addAttribute("errorMessage", "User already saved in database. " +
+                        "Please check your settings");
+                return "account/register";
+            }
+
         }
         return "account/register";
     }
