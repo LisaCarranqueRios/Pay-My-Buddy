@@ -118,7 +118,7 @@ public class TransactionController {
         model.addAttribute("accounts", accountService.findAll());
         model.addAttribute("bankAccounts", bankAccountService.findByUser(debtorAccount));
         model.addAttribute("email", email);
-        model.addAttribute("debtorAccount", debtorAccount);
+        model.addAttribute("debtorAccount", accountService.getByEmail(email));
         model.addAttribute("transactions", accountTransactions);
         model.addAttribute("contacts", debtorAccount.getContacts());
         model.addAttribute("transaction", new Transaction());
