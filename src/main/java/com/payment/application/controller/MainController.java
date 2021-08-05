@@ -11,6 +11,7 @@ public class MainController {
 
     /**
      * This method is responsible for getting main page
+     *
      * @param model
      * @return
      */

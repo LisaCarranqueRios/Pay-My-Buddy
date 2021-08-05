@@ -34,7 +34,7 @@ public class TransactionService implements ITransactionService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public Transaction save(int debtorId, String creditorEmail, double amount, String description,
-                             BankAccount bankAccount) {
+                            BankAccount bankAccount) {
         Account debtorAccount = accountService.findById(debtorId);
         Account creditorAccount = accountService.getByEmail(creditorEmail);
         if (debtorAccount.getContacts() != null && debtorAccount.getContacts().contains(creditorAccount)
@@ -46,8 +46,7 @@ public class TransactionService implements ITransactionService {
             accountService.decreaseCount(debtorAccount, transaction.getAmountTTC());
             accountService.increaseCount(creditorAccount, transaction.getAmount());
             return transactionDao.save(transaction);
-        }
-            else if (debtorAccount.equals(creditorAccount) &&
+        } else if (debtorAccount.equals(creditorAccount) &&
                 bankAccount.getBankAccountBalance() >= calculateTransactionAmountWithRate(amount)) {
             Transaction transaction = Transaction.builder().debtorAccount(debtorAccount)
                     .creditorAccount(creditorAccount).amount(amount).date(LocalDate.now().toString())
@@ -69,6 +68,7 @@ public class TransactionService implements ITransactionService {
 
     /**
      * This method is responsible to transfer money from user Pay My Buddy account to one of the linked bank accounts
+     *
      * @param userId
      * @param amount
      * @param description
@@ -77,8 +77,8 @@ public class TransactionService implements ITransactionService {
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public Transaction transfer(int userId,double amount, String description,
-                            BankAccount bankAccount) {
+    public Transaction transfer(int userId, double amount, String description,
+                                BankAccount bankAccount) {
         Account payMyBuddyAccount = accountService.findById(userId);
         if (payMyBuddyAccount.getCount() >= calculateTransactionAmountWithRate(amount)) {
             Transaction transaction = Transaction.builder().debtorAccount(payMyBuddyAccount)
@@ -98,6 +98,7 @@ public class TransactionService implements ITransactionService {
 
     /**
      * This method is responsible for getting a transaction by id
+     *
      * @param id the id of the selected transaction
      * @return the transaction selected by id
      */
@@ -109,6 +110,7 @@ public class TransactionService implements ITransactionService {
 
     /**
      * This method is responsible for deleting a transaction
+     *
      * @param transaction the transaction to be deleted
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -119,6 +121,7 @@ public class TransactionService implements ITransactionService {
 
     /**
      * This method is responsible for listing all the transactions existing in database
+     *
      * @return the list of the transaction existing in database
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
@@ -129,6 +132,7 @@ public class TransactionService implements ITransactionService {
 
     /**
      * This method is responsible for getting the list of transaction associated to a selected account
+     *
      * @param account the selected account
      * @return the list of the transaction associated to this account
      */
@@ -149,6 +153,7 @@ public class TransactionService implements ITransactionService {
 
     /**
      * This method is responsible for giving the amount TTC for a transaction
+     *
      * @param amount the amount of this transaction
      * @return the amount TTC
      */

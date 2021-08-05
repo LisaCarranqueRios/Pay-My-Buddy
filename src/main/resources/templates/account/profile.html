@@ -197,69 +197,6 @@
     <!-- end of add bank account Modal -->
 </section>
 
-<!-- bank account credit-->
-<!--<section>
-    <div class="container">
-        <form action="#" th:action="@{/bankAccount/credit}" th:object="${bankAccount}" method="post"
-              class="form-horizontal">
-            <div class="row profile-row justify-content-center align-items-center">
-        <div class="container ">
-            <div>
-                <div class="alert alert-success" th:if="${successMessage!=null}"
-                     th:text="${successMessage!=null?successMessage:null}"></div>
-                <div class="alert alert-danger" th:if="${errorMessage!=null}"
-                     th:text="${errorMessage!=null?errorMessage:null}"></div>
-            </div>
-            <div class="row transaction-row justify-content-center align-items-center">
-                    <span class="col-5">
-                        <label>Bank account to credit</label>
-                        <select th:field="*{iban}"class="connection-input" required>
-                            <option id="selectid" disabled value="">Select A Iban</option>
-                            <option th:each="bankAccount : ${bankAccounts}" th:value="${bankAccount.iban}"
-                                    th:text="${bankAccount.iban}"></option>
-                        </select>
-            </span>
-                <span class="col-3">
-                    <label>Amount to add</label>
-                        <input type="number" th:field="*{amount}"  placeholder="0€ " class="amount-input"
-                               required
-                               min=1>
-            </span>
-                <span class="col-3  ">
-                        <input class="green text-white btn btn-pay mt-4" type="button" value="Pay"
-                               data-bs-toggle="modal"
-                               data-bs-target="#creditModal">
-                </span>
-            </div>
-        </div>
-
-        &lt;!&ndash;modal for transaction validation &ndash;&gt;
-        <div class="modal fade" id="creditModal" tabindex="-1" aria-labelledby="creditModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="creditModalLabel">Confirm transaction</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="green text-white btn font-weight-bold">Credit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-            </div>
-    </form>
-    </div>
-</section>-->
-
-
-<!--<div class="container">
-    <div class="row justify-content-between">
-        <div class="col-8 mb-1 mt-5">Transfer money from your Pay My Buddy account to your bank account</div>
-    </div>
-</div>-->
 <!-- transfer from app account to bank account-->
 <section>
     <div class="container">

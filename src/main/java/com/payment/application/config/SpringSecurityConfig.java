@@ -3,8 +3,6 @@ package com.payment.application.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -12,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.sql.DataSource;
@@ -30,6 +26,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * This method is used by Spring Security to authenticate an existing user
+     *
      * @param auth
      * @throws Exception
      */
@@ -48,6 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * This method is used by Spring Security to grant access to application pages according to
      * user role and authentication and redirect user to login form if it is not already logged
+     *
      * @param http
      * @throws Exception
      */
@@ -76,6 +74,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * This method is used to exclude dependencies from Spring Security filters in order
      * to load them in Spring Security logging form
+     *
      * @param web
      */
     @Override

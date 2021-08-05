@@ -1,7 +1,5 @@
 package com.payment.application.DTO;
 
-import com.payment.application.model.Account;
-import com.payment.application.model.BankAccount;
 import lombok.*;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 

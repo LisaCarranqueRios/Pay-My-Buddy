@@ -9,6 +9,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     /**
      * This method is used to associate a view to the corresponding url path
+     *
      * @param registry
      */
     public void addViewControllers(ViewControllerRegistry registry) {
