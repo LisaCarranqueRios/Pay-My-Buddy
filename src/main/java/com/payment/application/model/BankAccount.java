@@ -1,6 +1,5 @@
 package com.payment.application.model;
 
-import com.payment.application.validation.ValidEmail;
 import lombok.*;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 
@@ -8,9 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter

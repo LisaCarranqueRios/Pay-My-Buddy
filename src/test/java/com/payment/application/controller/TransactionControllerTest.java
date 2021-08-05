@@ -116,6 +116,6 @@ public class TransactionControllerTest {
 
         transac.transfer(transaction, bindingResult, model);
         verify(transactionService, times(1)).transfer(account1.getId(),
-                Double.valueOf(transaction.getCount()), "Transfer from Pay My Buddy account to : " +transaction.getIban(), bankAccount);
+                Double.valueOf(transaction.getCount()), "Transfer from Pay My Buddy account to : " + transaction.getIban(), bankAccount);
     }
 }

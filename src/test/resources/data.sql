@@ -17,7 +17,6 @@ iban varchar(80) NOT NULL,
 first_name varchar(80) NOT NULL,
 last_name varchar(80) NOT NULL,
 bank_account_balance double,
---amount double,
 user_account_id int NOT NULL,
 FOREIGN KEY (user_account_id) REFERENCES account(ID));
 

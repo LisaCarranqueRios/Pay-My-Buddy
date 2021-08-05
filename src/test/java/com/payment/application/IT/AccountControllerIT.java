@@ -37,13 +37,13 @@ public class AccountControllerIT {
     @Autowired
     private MockMvc mvc;
 
-   @MockBean
+    @MockBean
     private ITransactionService transactionService;
 
-   @MockBean
+    @MockBean
     private IBankAccountService bankAccountService;
 
-   @MockBean
+    @MockBean
     private IAccountService accountService;
 
 

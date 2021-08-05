@@ -10,13 +10,13 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
+    private static final String EMAIL_PATTERN = "^(?:(?!.*?[.]{2})[a-zA-Z0-9](?:[a-zA-Z0-9.+!%-]{1,64}|)|\\\"[a-zA-Z0-9.+!% -]{1,64}\\\")@[a-zA-Z0-9][a-zA-Z0-9.-]+(.[a-z]{2,}|.[0-9]{1,})$";
     private Pattern pattern;
     private Matcher matcher;
-    private static final String EMAIL_PATTERN = "^(?:(?!.*?[.]{2})[a-zA-Z0-9](?:[a-zA-Z0-9.+!%-]{1,64}|)|\\\"[a-zA-Z0-9.+!% -]{1,64}\\\")@[a-zA-Z0-9][a-zA-Z0-9.-]+(.[a-z]{2,}|.[0-9]{1,})$";
-
 
     @Override
-    public void initialize(ValidEmail constraintAnnotation) {}
+    public void initialize(ValidEmail constraintAnnotation) {
+    }
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {

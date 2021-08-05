@@ -32,6 +32,7 @@ public class BankAccountController {
 
     /**
      * This method is responsible for linking a new bank account to the user Pay My Buddy account
+     *
      * @param bankAccount the bank account to link to this application
      * @param result
      * @param model
