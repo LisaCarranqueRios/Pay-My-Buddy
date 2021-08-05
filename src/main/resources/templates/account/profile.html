@@ -32,58 +32,15 @@
     </div>
 </section>
 
-
 <section>
-
     <div class="container">
-        <div class="mt-5 mb-2">Credit your account</div>
-<!--        <div class="transfer">-->
-
-            <form action="#" th:action="@{/account/credit}" th:object="${account}" method="post"
-                  class="form-horizontal">
-                <div class="row  profile-row justify-content-center align-items-center">
-
-                <div class="col-4">
-                    <label for="count"></label>
-                        <input class="btn-credit" type="number" th:field="*{count}" id="count" placeholder="0€" required min=1>
-                 </div>
-                <div class="col-4 ">
-                        <input class="green btn btn-credit mt-4" type="button" value="Credit" data-bs-toggle="modal"
-                               data-bs-target="#connectModal">
-                </div>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Confirm transaction</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="green btn">Credit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="error text-info" th:text="${errorMessage!=null?errorMessage:null}"></div>
-            </form>
-<!--        </div>-->
-    </div>
-</section>
-
-<section>
-<div class="container">
-    <div class="row mt-5 mb-0"><p>Check your profile information</p></div>
+        <div class="row mt-5 mb-0"><p>Check your profile information</p></div>
         <table class="table table-striped">
             <thead class="thead">
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th>Account</th>
+                <th>Pay My Buddy Account</th>
             </tr>
             </thead>
             <tbody class="thbody">
@@ -94,7 +51,263 @@
             </tr>
             </tbody>
         </table>
-</div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="mt-5 mb-2">Credit your Pay My Buddy account</div>
+        <form action="#" th:action="@{/transaction/creditAccount}" th:object="${transactionDTO}" method="post"
+              class="form-horizontal">
+            <div class="row profile-row justify-content-center align-items-center">
+
+                <div class="col-4">
+                    <label for="count">Amount to add</label>
+                    <input class="btn-credit" type="number" th:field="*{count}" id="count" placeholder="0€" required
+                           min=1>
+                </div>
+
+                <div class="col-4 ">
+                    <input class="green btn btn-credit mt-4" type="button" value="Credit" data-bs-toggle="modal"
+                           data-bs-target="#connectModal">
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm transaction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div>
+                        <select th:field="*{iban}"  class="connection-input" required>
+                            <option id="select" disabled value="">Select A Iban</option>
+                            <option th:each="bankAccount : ${bankAccounts}" th:value="${bankAccount.iban}"
+                                    th:text="${bankAccount.iban}"></option>
+                        </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="green btn">Credit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- bank accounts information -->
+<section>
+    <div class="container">
+        <div class="row mt-3"><p>Check your bank accounts information</p></div>
+        <table class="table table-striped" id="sort">
+            <thead class="thead">
+            <tr>
+                <th class="custom-th">Firstname</th>
+                <th class="custom-th">Lastname</th>
+                <th class="custom-th">Iban</th>
+                <th class="custom-th">Bank Account Balance</th>
+            </tr>
+            </thead>
+            <tbody class="thbody">
+            <tr th:each="bankAccount : ${bankAccounts}">
+                <td th:text="${bankAccount.firstName}"></td>
+                <td th:text="${bankAccount.lastName}"></td>
+                <td th:text="${bankAccount.iban}"></td>
+                <td th:text="${bankAccount.bankAccountBalance} + ' ' + €"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<!-- add bank account -->
+<section>
+    <!-- Add bank account -->
+<div class="container">
+        <div class="row justify-content-between">
+            <div class="col-8 mb-1 mt-5">Transfer money from your Pay My Buddy account to your bank account</div>
+            <div class="col-2 mb-1 mt-4">
+                <input class="blue btn mt-3 btn-connect text-white"
+                       type="button"
+                       value="Add Bank Account" data-bs-toggle="modal"
+                       data-bs-target="#addBankAccountModal">
+            </div>
+        </div>
+    </div>
+    <!-- Add bank account Modal -->
+    <form action="#" th:action="@{/bankAccount/add}" th:object="${bankAccount}" method="post"
+          class="form-horizontal">
+        <div class="modal fade" id="addBankAccountModal" tabindex="-1" aria-labelledby="addBankAccountModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addBankAccountModalLabel">Confirm Bank Account Added</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="btn-transfer">
+                            <input type="text" th:field="*{iban}" placeholder="FR76 2852 1966 1423 3450 8845 009"
+                                   class="col-5" required>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="btn-transfer">
+                            <input type="text" th:field="*{firstName}" placeholder="John"
+                                   class="col-5" required>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="btn-transfer">
+                            <input type="text" th:field="*{lastName}" placeholder="Smith"
+                                   class="col-5" required>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="btn-transfer">
+                            <input type="number" th:field="*{bankAccountBalance}" placeholder="0€ " class="amount-input"
+                                   required
+                                   min=1>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="green btn">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- end of add bank account Modal -->
+</section>
+
+<!-- bank account credit-->
+<!--<section>
+    <div class="container">
+        <form action="#" th:action="@{/bankAccount/credit}" th:object="${bankAccount}" method="post"
+              class="form-horizontal">
+            <div class="row profile-row justify-content-center align-items-center">
+        <div class="container ">
+            <div>
+                <div class="alert alert-success" th:if="${successMessage!=null}"
+                     th:text="${successMessage!=null?successMessage:null}"></div>
+                <div class="alert alert-danger" th:if="${errorMessage!=null}"
+                     th:text="${errorMessage!=null?errorMessage:null}"></div>
+            </div>
+            <div class="row transaction-row justify-content-center align-items-center">
+                    <span class="col-5">
+                        <label>Bank account to credit</label>
+                        <select th:field="*{iban}"class="connection-input" required>
+                            <option id="selectid" disabled value="">Select A Iban</option>
+                            <option th:each="bankAccount : ${bankAccounts}" th:value="${bankAccount.iban}"
+                                    th:text="${bankAccount.iban}"></option>
+                        </select>
+            </span>
+                <span class="col-3">
+                    <label>Amount to add</label>
+                        <input type="number" th:field="*{amount}"  placeholder="0€ " class="amount-input"
+                               required
+                               min=1>
+            </span>
+                <span class="col-3  ">
+                        <input class="green text-white btn btn-pay mt-4" type="button" value="Pay"
+                               data-bs-toggle="modal"
+                               data-bs-target="#creditModal">
+                </span>
+            </div>
+        </div>
+
+        &lt;!&ndash;modal for transaction validation &ndash;&gt;
+        <div class="modal fade" id="creditModal" tabindex="-1" aria-labelledby="creditModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="creditModalLabel">Confirm transaction</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="green text-white btn font-weight-bold">Credit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+    </form>
+    </div>
+</section>-->
+
+
+<!--<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-8 mb-1 mt-5">Transfer money from your Pay My Buddy account to your bank account</div>
+    </div>
+</div>-->
+<!-- transfer from app account to bank account-->
+<section>
+    <div class="container">
+        <form action="#" th:action="@{/transaction/accountToBankAccount}" th:object="${transactionDTO}" method="post"
+              class="form-horizontal">
+            <div class="row profile-row justify-content-center align-items-center">
+                <div class="container ">
+                    <div>
+                        <div class="alert alert-success" th:if="${successMessage!=null}"
+                             th:text="${successMessage!=null?successMessage:null}"></div>
+                        <div class="alert alert-danger" th:if="${errorMessage!=null}"
+                             th:text="${errorMessage!=null?errorMessage:null}"></div>
+                    </div>
+                    <div class="row transaction-row justify-content-center align-items-center">
+                    <span class="col-5">
+                        <label>Bank account to credit</label>
+                        <select th:field="*{iban}"  class="connection-input" required>
+                            <option id="selectIban" disabled value="">Select A Iban</option>
+                            <option th:each="bankAccount : ${bankAccounts}" th:value="${bankAccount.iban}"
+                                    th:text="${bankAccount.iban}"></option>
+                        </select>
+            </span>
+                        <span class="col-4">
+                    <label for="count">Amount to transfer to your bank account</label>
+                        <input type="number" th:field="*{count}"  placeholder="0€ " class="amount-input"
+                               required
+                               min=1>
+            </span>
+                        <span class="col-3  ">
+                        <input class="green text-white btn btn-pay mt-4" type="button" value="Pay"
+                               data-bs-toggle="modal"
+                               data-bs-target="#transferModal">
+                </span>
+                    </div>
+                </div>
+
+                <!--modal for transaction validation -->
+                <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirm transaction</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="green text-white btn font-weight-bold">Transfer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </section>
 
 </body>

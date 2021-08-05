@@ -1,9 +1,12 @@
 package com.payment.application.controller;
 
 import com.payment.application.DTO.AccountDTO;
+import com.payment.application.DTO.TransactionDTO;
 import com.payment.application.model.Account;
+import com.payment.application.model.BankAccount;
 import com.payment.application.model.Transaction;
 import com.payment.application.service.IAccountService;
+import com.payment.application.service.IBankAccountService;
 import com.payment.application.service.ITransactionService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class TransactionController {
     @Autowired
     private IAccountService accountService;
 
+    @Autowired
+    private IBankAccountService bankAccountService;
+
     /**
      * This method is responsible for saving a new transaction
      * @param transaction the new transaction to be saved
@@ -40,7 +46,7 @@ public class TransactionController {
         Transaction transactionSaved = null;
         if (!result.hasErrors()) {
             transactionSaved = transactionService.save(debtorAccount.getId(), transaction.getCreditorAccount().getEmail(),
-                    Double.valueOf(transaction.getAmount()), transaction.getDescription());
+                    Double.valueOf(transaction.getAmount()), transaction.getDescription(), null);
         }
         List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
         Set<Account> accountToAdd = accountService.findByAccount(debtorAccount);
@@ -81,6 +87,67 @@ public class TransactionController {
         model.addAttribute("accountDTO", new AccountDTO());
         return "transaction/list";
     }
+
+    /**
+     * This method is responsible for credit procedure on user's account
+     * @param transactionDTO
+     * @param result
+     * @param model
+     * @return the page with the list of all transaction
+     */
+    @PostMapping("/transaction/creditAccount")
+    public String credit(TransactionDTO transactionDTO, BindingResult result, Model model) {
+        String email = accountService.getUser();
+        Account debtorAccount = accountService.getByEmail(email);
+        BankAccount bankAccount = bankAccountService.getByIban(transactionDTO.getIban());
+        Transaction transaction = null;
+        if (!result.hasErrors()) {
+            transaction = transactionService.save(debtorAccount.getId(), debtorAccount.getEmail(),
+                    Double.valueOf(transactionDTO.getCount()), "Credit from IBAN : " + transactionDTO.getIban()
+            , bankAccount);
+        }
+        List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
+        model.addAttribute("accounts", accountService.findAll());
+        model.addAttribute("bankAccounts", bankAccountService.findByUser(debtorAccount));
+        model.addAttribute("email", email);
+        model.addAttribute("debtorAccount", debtorAccount);
+        model.addAttribute("transactions", accountTransactions);
+        model.addAttribute("contacts", debtorAccount.getContacts());
+        model.addAttribute("transaction", new Transaction());
+        model.addAttribute("account", new Account());
+        model.addAttribute("bankAccount", new BankAccount());
+        model.addAttribute("transactionDTO", new TransactionDTO());
+        //model.addAttribute("successMessage", transaction.getDescription());
+        return "account/profile";
+    }
+
+
+    @PostMapping("/transaction/accountToBankAccount")
+    public String transfer(TransactionDTO transactionDTO, BindingResult result, Model model) {
+        String email = accountService.getUser();
+        Account payMyBuddyAccount = accountService.getByEmail(email);
+        BankAccount bankAccount = bankAccountService.getByIban(transactionDTO.getIban());
+        Transaction transaction = null;
+        if (!result.hasErrors()) {
+            transaction = transactionService.transfer(payMyBuddyAccount.getId(),
+                    Double.valueOf(transactionDTO.getCount()), "Transfer from Pay My Buddy account to : " +transactionDTO.getIban()
+            , bankAccount);
+        }
+        List<Transaction> accountTransactions = transactionService.findByAccount(payMyBuddyAccount);
+        model.addAttribute("accounts", accountService.findAll());
+        model.addAttribute("bankAccounts", bankAccountService.findByUser(payMyBuddyAccount));
+        model.addAttribute("email", email);
+        model.addAttribute("debtorAccount", payMyBuddyAccount);
+        model.addAttribute("transactions", accountTransactions);
+        model.addAttribute("contacts", payMyBuddyAccount.getContacts());
+        model.addAttribute("transaction", new Transaction());
+        model.addAttribute("account", new Account());
+        model.addAttribute("bankAccount", new BankAccount());
+        model.addAttribute("transactionDTO", new TransactionDTO());
+        //model.addAttribute("successMessage", transaction.getDescription());
+        return "account/profile";
+    }
+
 
 
 }

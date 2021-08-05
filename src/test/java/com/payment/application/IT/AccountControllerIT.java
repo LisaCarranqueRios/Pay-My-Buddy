@@ -6,10 +6,7 @@ import com.payment.application.dao.AccountDao;
 import com.payment.application.dao.TransactionDao;
 import com.payment.application.model.Account;
 import com.payment.application.model.Transaction;
-import com.payment.application.service.AccountService;
-import com.payment.application.service.IAccountService;
-import com.payment.application.service.ITransactionService;
-import com.payment.application.service.TransactionService;
+import com.payment.application.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -41,10 +38,13 @@ public class AccountControllerIT {
     private MockMvc mvc;
 
    @MockBean
-    private TransactionService transactionService;
+    private ITransactionService transactionService;
 
    @MockBean
-    private AccountService accountService;
+    private IBankAccountService bankAccountService;
+
+   @MockBean
+    private IAccountService accountService;
 
 
     @WithMockUser("jeanne@mail.com")
@@ -81,19 +81,6 @@ public class AccountControllerIT {
                 .andReturn();
     }
 
-    @WithMockUser("jeanne@mail.com")
-    @Test
-    public void credit_shouldSucceedWith200() throws Exception {
-        Account debtorAccount = Account.builder().email("jeanne@mail.com").id(200).count(10000.0)
-                .firstName("jeanne").lastName("dupont").build();
-        when(accountService.getUser()).thenReturn("jeanne@mail.com");
-        when(accountService.getByEmail("jeanne@mail.com")).thenReturn(debtorAccount);
-        this.mvc.perform(post("/account/credit").param("count", "10")
-                .param("email", "martine@mail.com")
-                .with(csrf()))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
 
     @WithMockUser("jeanne@mail.com")
     @Test

@@ -6,10 +6,7 @@ import com.payment.application.dao.AccountDao;
 import com.payment.application.dao.TransactionDao;
 import com.payment.application.model.Account;
 import com.payment.application.model.Transaction;
-import com.payment.application.service.AccountService;
-import com.payment.application.service.IAccountService;
-import com.payment.application.service.ITransactionService;
-import com.payment.application.service.TransactionService;
+import com.payment.application.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,7 +21,8 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {AccountController.class, IAccountService.class, AccountService.class,
-        TransactionController.class, ITransactionService.class, TransactionService.class},
+        TransactionController.class, ITransactionService.class, TransactionService.class,
+        IBankAccountService.class, BankAccountService.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration

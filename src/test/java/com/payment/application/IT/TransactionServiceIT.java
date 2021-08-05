@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.List;
+import java.util.Set;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,9 +51,9 @@ public class TransactionServiceIT {
         debtorAccount = accountService.save(debtorAccount);
         accountService.addContact(creditorAccount, debtorAccount);
         Transaction transactionSaved1 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
         Transaction transactionSaved2 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
         List<Transaction> transactions = transactionService.findAll();
         assertNotNull(transactions);
         assertFalse(transactions.isEmpty());
@@ -72,9 +73,9 @@ public class TransactionServiceIT {
         debtorAccount = accountService.save(debtorAccount);
         accountService.addContact(creditorAccount, debtorAccount);
         Transaction transactionSaved1 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
         Transaction transactionSaved2 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
         List<Transaction> transactions = transactionService.findAll();
         assertNotNull(transactionService.displayATransaction(transactionSaved1.getId()));
         assertNotNull(transactionService.displayATransaction(transactionSaved2.getId()));
@@ -90,9 +91,9 @@ public class TransactionServiceIT {
         debtorAccount = accountService.save(debtorAccount);
         accountService.addContact(creditorAccount, debtorAccount);
         Transaction transactionSaved1 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
         Transaction transactionSaved2 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
         List<Transaction> transactions = transactionService.findAll();
         assertNotNull(transactions);
         assertFalse(transactions.isEmpty());
@@ -111,9 +112,9 @@ public class TransactionServiceIT {
         debtorAccount = accountService.save(debtorAccount);
         accountService.addContact(creditorAccount, debtorAccount);
         Transaction transactionSaved1 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
-                100, "js event");
-        Transaction transactionSaved2 = transactionService.save(debtorAccount.getId(), "jeanne.dupont@email.com",
-                100, "js event");
+                100, "js event", null);
+        Transaction transactionSaved2 = transactionService.save(debtorAccount.getId(), "martine.dupont@email.com",
+                100, "js event", null);
         List<Transaction> transactions = transactionService.findAll();
         assertNotNull(transactions);
         assertFalse(transactions.isEmpty());
