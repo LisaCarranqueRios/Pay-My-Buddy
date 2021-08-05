@@ -1,9 +1,12 @@
 package com.payment.application.controller;
 
 import com.payment.application.DTO.AccountDTO;
+import com.payment.application.DTO.TransactionDTO;
 import com.payment.application.model.Account;
+import com.payment.application.model.BankAccount;
 import com.payment.application.model.Transaction;
 import com.payment.application.service.IAccountService;
+import com.payment.application.service.IBankAccountService;
 import com.payment.application.service.ITransactionService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class AccountController {
 
     @Autowired
     private IAccountService accountService;
+
+    @Autowired
+    private IBankAccountService bankAccountService;
 
     /**
      * This method is responsible for getting a list of all accounts existing in database
@@ -89,11 +95,14 @@ public class AccountController {
         Account debtorAccount = accountService.getByEmail(email);
         List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
         model.addAttribute("accounts", accountService.findAll());
+        model.addAttribute("bankAccounts", bankAccountService.findByUser(debtorAccount));
         model.addAttribute("email", email);
         model.addAttribute("debtorAccount", debtorAccount);
         model.addAttribute("transactions", accountTransactions);
         model.addAttribute("transaction", new Transaction());
         model.addAttribute("account", new Account());
+        model.addAttribute("transactionDTO", new TransactionDTO());
+        model.addAttribute("bankAccount", new BankAccount());
         return "account/profile";
     }
 
@@ -153,29 +162,5 @@ public class AccountController {
         return "transaction/list";
     }
 
-    /**
-     * This method is responsible for credit procedure on user's account
-     * @param account the account containg the count value to be added
-     * @param result
-     * @param model
-     * @return the page with the list of all transaction
-     */
-    @PostMapping("/account/credit")
-    public String credit(Account account, BindingResult result, Model model) {
-        String email = accountService.getUser();
-        Account debtorAccount = accountService.getByEmail(email);
-        if (!result.hasErrors()) {
-            accountService.credit(debtorAccount, account.getCount());
-        }
-        List<Transaction> accountTransactions = transactionService.findByAccount(debtorAccount);
-        model.addAttribute("accounts", accountService.findAll());
-        model.addAttribute("email", email);
-        model.addAttribute("transactions", accountTransactions);
-        model.addAttribute("contacts", debtorAccount.getContacts());
-        model.addAttribute("transaction", new Transaction());
-        model.addAttribute("account", new Account());
-        model.addAttribute("accountDTO", new AccountDTO());
-        return "transaction/list";
-    }
 
 }
