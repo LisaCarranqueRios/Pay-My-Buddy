@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * This interface contains method to manage bank account data
+ */
 public interface BankAccountDao extends JpaRepository<BankAccount, Integer> {
 
     @Query("select a from BankAccount a where a.userAccount=:user")

@@ -30,6 +30,13 @@ public class BankAccountController {
     ITransactionService transactionService;
 
 
+    /**
+     * This method is responsible for linking a new bank account to the user Pay My Buddy account
+     * @param bankAccount the bank account to link to this application
+     * @param result
+     * @param model
+     * @return The page with the Pay My Buddy user account and bank accounts
+     */
     @PostMapping("/bankAccount/add")
     public String connect(BankAccount bankAccount, BindingResult result, Model model) {
         String email = accountService.getUser();

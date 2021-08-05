@@ -22,7 +22,7 @@ public class BankAccountService implements IBankAccountService {
 
 
     /**
-     * This method is responsible for getting an account by iben
+     * This method is responsible for getting a bank account by iban
      * @param iban the iban of the selected bank account
      * @return the bank account associated to this iban
      */
@@ -32,7 +32,7 @@ public class BankAccountService implements IBankAccountService {
     }
 
     /**
-     * This method is responsible for saving a new account if it does not already exist in database
+     * This method is responsible for saving a new bank account if it does not already exist in database
      * @param bankAccount the new bank account to save in database
      * @return the saved bank account in database
      */
@@ -47,7 +47,7 @@ public class BankAccountService implements IBankAccountService {
     }
 
     /**
-     * This method is responsible for listing all accounts existing in database
+     * This method is responsible for listing all bank accounts existing in database
      * @return the list of the accounts existing in database
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -57,7 +57,7 @@ public class BankAccountService implements IBankAccountService {
     }
 
     /**
-     * This method is responsible for listing all bank accounts existing in database
+     * This method is responsible for listing all bank accounts existing in database for the selected user
      * @return the list of the bank accounts existing in database for this user
      */
     @Override
@@ -66,7 +66,7 @@ public class BankAccountService implements IBankAccountService {
     }
 
     /**
-     * This method is responsible for decreasing a bank account
+     * This method is responsible for decreasing a bank account balance
      * @param bankAccount the bank account to debit
      * @param amount the amount to be removed
      */
@@ -77,7 +77,7 @@ public class BankAccountService implements IBankAccountService {
     }
 
     /**
-     * This method is responsible for increasing a bank account
+     * This method is responsible for increasing a bank account balance
      * @param bankAccount the account to credit
      * @param amount the credit to be added
      */
